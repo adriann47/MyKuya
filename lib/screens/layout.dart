@@ -3,6 +3,7 @@ import 'package:mykuya/screens/home_page.dart';
 import 'package:mykuya/screens/notifications.dart';
 import 'package:mykuya/screens/wallet.dart';
 
+// Main layout with bottom navigation
 class Layout extends StatefulWidget {
   const Layout({super.key});
 
@@ -14,12 +15,14 @@ class _LayoutState extends State<Layout> {
 
   int _currentScreen = 0;
 
+  // Change screen when nav item is tapped
   void _screenNavigator(int index) {
     setState(() {
       _currentScreen = index;
     });
   }
 
+  // Screens list for navigation
   final List _screens = [
   HomePage(),
   Notifications(),
@@ -31,8 +34,10 @@ class _LayoutState extends State<Layout> {
     return Scaffold(
       backgroundColor: Colors.white,
 
+      // Show current screen
       body: _screens[_currentScreen],
 
+      // Bottom navigation bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           border: Border(
@@ -51,18 +56,21 @@ class _LayoutState extends State<Layout> {
           currentIndex: _currentScreen,
           onTap: _screenNavigator,
           items: [
-        
+
+            // Home tab
             BottomNavigationBarItem(
               icon: Icon(Icons.home,
               color: Color(0xFF55A2F0)),
               label: 'Home'
               ),
-        
+
+            // Notifications tab
             BottomNavigationBarItem(
               icon: Icon(Icons.notifications,
               color: Color(0xFF55A2F0)),
               label: 'Notifications'),
-        
+
+            // Wallet tab
             BottomNavigationBarItem(
               icon: Icon(Icons.wallet,
               color: Color(0xFF55A2F0)),
