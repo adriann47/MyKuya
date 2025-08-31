@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 15,),
-      
+            // Horizontal list of errands with clickable cards
             Container(
               height: 220,
               child: ListView.separated(
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index){
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, errands[index].route);
+                      Navigator.pushNamed(context, errands[index].route);  // Navigate to selected errand route
                     },
                     child: Container(
                       height: 220,
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                               border: Border.all(color: Colors.black),
                               borderRadius: BorderRadius.circular(15)
                             ),
-                          ),
+                          ), // Display errand name
                           Text(errands[index].errand,
                           style: TextStyle(
                             color: Colors.black,
