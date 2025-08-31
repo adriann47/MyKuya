@@ -228,7 +228,8 @@ class _CleaningPageState extends State<CleaningPage> {
       ),
     );
   }
-
+  
+  // Pick a date and set it to the text field
   Future<void> _pickDate() async{
     DateTime? _pickedDate = await showDatePicker(
       context: context,
