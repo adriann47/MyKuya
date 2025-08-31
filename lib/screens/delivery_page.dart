@@ -6,6 +6,7 @@ class DeliveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // Close keyboard when tapping outside
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -21,6 +22,7 @@ class DeliveryPage extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           
+          // Errand description section
           children: [
             Container(
               margin: EdgeInsets.only(left: 20, top: 20),
@@ -31,7 +33,7 @@ class DeliveryPage extends StatelessWidget {
                 ),
               ),
             ),
-            
+            // Box for errand description input
             Container(
               margin: EdgeInsets.only(top: 10,left: 20,right: 20),
               height: 250,
@@ -43,7 +45,7 @@ class DeliveryPage extends StatelessWidget {
                 )
               ),
             ),
-      
+             // Origin and Destination fields
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -138,7 +140,7 @@ class DeliveryPage extends StatelessWidget {
                 ),
               ],
             ),
-
+            // Price breakdown section
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -156,7 +158,7 @@ class DeliveryPage extends StatelessWidget {
             ),
 
             Spacer(),
-
+            // Confirm button
             Container(
               margin: EdgeInsets.all(20),
               child: ElevatedButton(
