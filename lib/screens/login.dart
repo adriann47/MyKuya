@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mykuya/screens/layout.dart';
 import 'package:mykuya/screens/register.dart';
-import 'package:mykuya/screens/home_page.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -86,8 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                      Navigator.push(context,
-                     MaterialPageRoute(builder: (context) => HomePage()),
+                      Navigator.pushReplacement(context,
+                     MaterialPageRoute(builder: (context) => Layout()),
                     );
                 },
                 style: ElevatedButton.styleFrom(

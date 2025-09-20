@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             'MyKuya',
             style: TextStyle(
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 20),
               child: Text(
-                'Common Errands',
+                'Find a Kuya',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
               )
             ),
             // Section title
-            Container(
+            /* Container(
               margin: EdgeInsets.only(left: 20, top: 20),
               child: Text(
                 'Special Errands',
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                   color: Color(0xFF55A2F0)
                 ),
               ),
-            ),
+            ), */
             SizedBox(height: 15,),
       
             // Horizontal scroll list of errands

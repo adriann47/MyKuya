@@ -61,6 +61,7 @@ flutter:
     - assets/icons/tech.png
     - assets/icons/homerepair.png
     - assets/icons/health.png
+    - assets/icons/deliveryup.png
   uses-material-design: true
   
 
