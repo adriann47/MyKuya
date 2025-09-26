@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mykuya/screens/layout.dart';
 import 'package:mykuya/screens/register.dart';
 
@@ -9,6 +11,85 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
+  bool _isLoading = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserPrefs();
+  }
+
+  // Load saved data from SharedPreferences
+  Future<void> _loadUserPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _rememberMe = prefs.getBool("rememberMe") ?? false;
+      if (_rememberMe) {
+        _emailController.text = prefs.getString("email") ?? "";
+        _passwordController.text = prefs.getString("password") ?? "";
+      }
+    });
+
+    // Auto-login if already signed in
+    if (_auth.currentUser != null && _rememberMe) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Layout()),
+      );
+    }
+  }
+
+  // Save login details if Remember Me is checked
+  Future<void> _saveUserPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (_rememberMe) {
+      await prefs.setBool("rememberMe", true);
+      await prefs.setString("email", _emailController.text);
+      await prefs.setString("password", _passwordController.text);
+    } else {
+      await prefs.setBool("rememberMe", false);
+      await prefs.remove("email");
+      await prefs.remove("password");
+    }
+  }
+
+  // Login function with Firebase Auth
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      await _saveUserPrefs(); // Save if Remember Me is checked
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Layout()),
+      );
+    } on FirebaseAuthException catch (e) {
+      String message = "Login failed. Please try again.";
+      if (e.code == 'user-not-found') {
+        message = "No user found for that email.";
+      } else if (e.code == 'wrong-password') {
+        message = "Incorrect password.";
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message)),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +123,17 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 24),
             TextField(
+              controller: _emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                hintText: 'Email/Username',
+                hintText: 'Email',
               ),
             ),
             SizedBox(height: 16),
             TextField(
+              controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -74,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Spacer(),
                 TextButton(
                   onPressed: () {
-                    //insert functionality code for forgot password
+                    // TODO: Forgot password functionality
                   },
                   child: Text('Forgot Password'),
                 ),
@@ -85,36 +168,40 @@ class _LoginScreenState extends State<LoginScreen> {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                      Navigator.pushReplacement(context,
-                     MaterialPageRoute(builder: (context) => Layout()),
-                    );
-                },
+                onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), 
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text('Login', style: TextStyle(color: Colors.white),
-                ),
+                child: _isLoading
+                    ? CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : Text('Login', style: TextStyle(color: Colors.white)),
               ),
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Don't have an account? "),
-                 GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RegisterScreen()),
-                        );
-                      },
-                      child: Text("Sign up", style: TextStyle(color: Colors.blue[400])),
-                    ),
-              ],)
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegisterScreen()),
+                    );
+                  },
+                  child: Text(
+                    "Sign up",
+                    style: TextStyle(color: Colors.blue[400]),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
