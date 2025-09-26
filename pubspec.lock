@@ -191,23 +191,7 @@ packages:
       sha256: fb31f383e2ee25fbbfe06b40fe21e1e458d14080e3c67e7ba0acfde4df4e0bbd
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "0.7.4"
-  typed_data:
-    dependency: transitive
-    description:
-      name: typed_data
-      sha256: f9049c039ebfeb4cf7a7104a675823cd72dba8297f264b6637062516699fa006
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
-=======
-<<<<<<< HEAD
-    version: "0.7.6"
-=======
-    version: "0.7.4"
->>>>>>> parent of 8872d29 (Firebase implemented.)
->>>>>>> 47fc5b8e8edaaa404245d8d25231ef1f37a6c730
   vector_math:
     dependency: transitive
     description:

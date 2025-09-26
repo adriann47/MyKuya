@@ -70,10 +70,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 15,),
-      
             // Horizontal scroll list of errands
-            Container(
+            /* Container(
               height: 220,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -119,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 }
               )
-            ),
+            ), */
             // Section title
             /* Container(
               margin: EdgeInsets.only(left: 20, top: 20),
@@ -132,47 +130,51 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ), */
-            SizedBox(height: 15,),
-      
-            // Horizontal scroll list of errands
+            SizedBox(height: 15),
+
             Container(
-              height: 220,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(left: 20,right: 20),
-                separatorBuilder: (context, index) => SizedBox(width: 20), 
-                itemCount: specialErrands.length,
-                itemBuilder: (context, index){
+              height: 650, // Adjust height to fit 2 rows
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: GridView.count(
+                crossAxisCount: 2, // 2 columns
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
+                physics: NeverScrollableScrollPhysics(), // Prevent inner scrolling if needed
+                childAspectRatio: 0.80, // Adjust as needed for height/width ratio
+                children: List.generate(errands.length, (index) {
                   return GestureDetector(
-                    // Navigate to selected errand screen
                     onTap: () {
-                      Navigator.pushNamed(context, specialErrands[index].route);
+                      Navigator.pushNamed(context, errands[index].route);
                     },
                     child: Container(
-                      height: 220,
-                      width: 150,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.black)
+                        border: Border.all(color: Colors.black),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Placeholder for errand image
+                          // Image
                           Container(
                             height: 150,
-                            width: 150,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15)
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                            child: Image.asset(specialErrands[index].imagePath),
+                            child: Image.asset(
+                              errands[index].imagePath,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          // Errand title
-                          Text(
-                            specialErrands[index].errand,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16
+                          // Title
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              errands[index].errand,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ],
@@ -180,13 +182,14 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-              )
-            )
-          ],
-        ),
+              ),
+            ),
+          )
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   // Search bar widget
   Container searchField() {
