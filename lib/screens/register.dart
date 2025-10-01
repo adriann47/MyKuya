@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mykuya/screens/home_page.dart';
+import 'package:mykuya/screens/layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -46,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
       // ✅ Only navigates if registration succeeds
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => Layout()),
       );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
