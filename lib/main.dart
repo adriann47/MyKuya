@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:mykuya/firebase_options.dart';
 import 'package:mykuya/screens/cleaning_page.dart';
 import 'package:mykuya/screens/delivery_page.dart';
+import 'package:mykuya/screens/home_page.dart';
+import 'package:mykuya/screens/home_pagekuya.dart';
 import 'package:mykuya/screens/layout.dart';
 import 'package:mykuya/screens/pet_page.dart';
 import 'package:mykuya/screens/shopping_page.dart';
 import 'package:mykuya/screens/login.dart';
 import 'package:mykuya/screens/register.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:mykuya/screens/delivery_preview.dart';
 
-void main() {
+
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -27,7 +40,10 @@ class MyApp extends StatelessWidget {
         '/delivery' : (context) => DeliveryPage(),
         '/shopping' : (context) => ShoppingPage(),
         '/cleaning' : (context) => CleaningPage(),
-        '/pet' : (context) => PetPage()
+        '/pet' : (context) => PetPage(),
+        '/kuya' : (context) => HomePageKuya(),
+        '/home' : (context) => HomePage(),
+        '/deliverypreview' : (context) => DeliveryPreview(),
       },
       home: Layout(),
     );

@@ -18,8 +18,8 @@ class ErrandModel {
     errands.add(
       ErrandModel(
         errand: 'Delivery', 
-        imagePath: 'assets/icons/delivery.jpg',
-        route: '/delivery'
+        imagePath: 'assets/icons/techhelp2.png',
+        route: '/deliverypreview'
       )
     );
 
@@ -27,7 +27,7 @@ class ErrandModel {
     errands.add(
       ErrandModel(
         errand: 'Cleaning', 
-        imagePath: 'assets/icons/cleaning.jpg',
+        imagePath: 'assets/icons/klining.png',
         route: '/cleaning'
       )
     );
@@ -35,7 +35,7 @@ class ErrandModel {
     errands.add(
       ErrandModel(
         errand: 'Shopping', 
-        imagePath: 'assets/icons/shopping.jpg',
+        imagePath: 'assets/icons/grusire.png',
         route: '/shopping'
       )
     );
@@ -43,7 +43,7 @@ class ErrandModel {
     errands.add(
       ErrandModel(
         errand: 'Pet Sitting', 
-        imagePath: 'assets/icons/pet.png',
+        imagePath: 'assets/icons/pitsiting.png',
         route: '/pet'
       ),
     );

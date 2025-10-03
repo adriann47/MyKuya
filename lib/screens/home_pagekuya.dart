@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/errand_models.dart';
+import 'package:mykuya/models/kuya_model.dart';
 import 'package:mykuya/models/specialized_models.dart';
 
 // HomePage widget (main screen for errands)
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
+class HomePageKuya extends StatefulWidget {
+  HomePageKuya({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageKuya> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePageKuya> {
   // Stores errands data
   List<ErrandModel> errands = [];
   List<SpecializedErrandModel> specialErrands = [];
+  List<KuyaModel> kuyas = [];
   // Fetch errands from model
   void _getErrands() {
     errands = ErrandModel.getErrands();
@@ -22,11 +24,14 @@ class _HomePageState extends State<HomePage> {
   void _getSpecialErrands(){
     specialErrands = SpecializedErrandModel.getErrands();
   }
-
+  void _getKuyas(){
+    kuyas = KuyaModel.getkuyas();
+  }
   @override
   void initState(){
     _getErrands(); // load errands on start
     _getSpecialErrands();
+    _getKuyas();
   }
 
   @override
@@ -62,11 +67,9 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 20),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/kuya');
-                },
+                onTap: () {Navigator.pushNamed(context, '/home');},
                 child: Text(
-                  'Be a Kuya',
+                  'Find a Kuya',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
@@ -145,11 +148,11 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
                 physics: NeverScrollableScrollPhysics(), // Prevent inner scrolling if needed
-                childAspectRatio: 0.70, // Adjust as needed for height/width ratio
-                children: List.generate(errands.length, (index) {
+                childAspectRatio: 0.80, // Adjust as needed for height/width ratio
+                children: List.generate(kuyas.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, errands[index].route);
+                      Navigator.pushNamed(context, kuyas[index].route);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -167,39 +170,20 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Image.asset(
-                              errands[index].imagePath,
+                              kuyas[index].imagePath,
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left:8.0),
-                            child: Text('800 meters away',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12
-                              ),
-                            )
-                          ),
                           // Title
                           Padding(
-                            padding: EdgeInsets.only(left: 8.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Text(
-                              errands[index].errand,
+                              kuyas[index].errand,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left:8.0),
-                            child: Text('\$800/hr',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                              ),
-                            )
                           ),
                         ],
                       ),
