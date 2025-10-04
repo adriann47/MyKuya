@@ -70,10 +70,10 @@ flutter:
     - assets/icons/grusire.png
     - assets/icons/pitsiting.png
     - assets/icons/klining.png
-    - assets/icons/johnweak.png
-    - assets/icons/franksinatra.png
-    - assets/icons/madong.png
-    - assets/icons/lebwrong.png
+    - assets/icons/shai.png
+    - assets/icons/ye.png
+    - assets/icons/lebron.png
+    - assets/icons/asap.png
   uses-material-design: true
   
 
