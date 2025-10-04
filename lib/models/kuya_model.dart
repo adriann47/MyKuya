@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 // Model for errands
 class KuyaModel {
-  String errand;
+  String kuya;
   String imagePath;
+  String work;
   String route;
 
   KuyaModel({
-    required this.errand,
+    required this.kuya,
     required this.imagePath,
+    required this.work,
     required this.route,
   });
 
@@ -17,8 +19,9 @@ class KuyaModel {
 
     kuyas.add(
       KuyaModel(
-        errand: 'Delivery', 
+        kuya: 'Kuya Shai', 
         imagePath: 'assets/icons/shai.png',
+        work: 'Tech Specialist',
         route: '/delivery'
       )
     );
@@ -26,24 +29,27 @@ class KuyaModel {
 
     kuyas.add(
       KuyaModel(
-        errand: 'Cleaning', 
+        kuya: 'Kuya Rocky', 
         imagePath: 'assets/icons/asap.png',
+        work: 'Cleaner',
         route: '/cleaning'
       )
     );
 
     kuyas.add(
       KuyaModel(
-        errand: 'Shopping', 
+        kuya: 'Kuya Ye', 
         imagePath: 'assets/icons/ye.png',
+        work: 'Shopping God',
         route: '/shopping'
       )
     );
 
     kuyas.add(
       KuyaModel(
-        errand: 'Pet Sitting', 
+        kuya: 'Kuya Bron', 
         imagePath: 'assets/icons/lebron.png',
+        work: 'Pet Sitter',
         route: '/pet'
       ),
     );

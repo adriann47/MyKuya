@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePageKuya> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             searchField(), // top search bar
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             // Section title
             Container(
@@ -77,16 +77,15 @@ class _HomePageState extends State<HomePageKuya> {
                 ),
             ),
             
-            SizedBox(height: 15),
+            SizedBox(height: 10),
 
-            Container(
-              height: 650,
+            Expanded(
+              child:Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
-                physics: NeverScrollableScrollPhysics(),
                 childAspectRatio: 0.70,
                 children: List.generate(kuyas.length, (index) {
                   return GestureDetector(
@@ -103,27 +102,37 @@ class _HomePageState extends State<HomePageKuya> {
                         children: [
                           // Image
                           Container(
-                            height: 150,
+                            height: 180,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Image.asset(
                               kuyas[index].imagePath,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
-                          // Title
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsets.only(left: 8),
                             child: Text(
-                              kuyas[index].errand,
+                              kuyas[index].work,
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 8),
+                            child: Text(
+                              kuyas[index].kuya,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
                               ),
                             ),
                           ),
+                          
                         ],
                       ),
                     ),
@@ -131,6 +140,7 @@ class _HomePageState extends State<HomePageKuya> {
                 }
               ),
             ),
+          )
           )
         ],
       ),

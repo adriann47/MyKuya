@@ -59,13 +59,13 @@ class _LayoutState extends State<Layout> {
           items: [
             // Home item
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFF55A2F0)),
+              icon: Icon(Icons.directions_run, color: Color(0xFF55A2F0)),
               label: 'Home',
             ),
 
             // Notifications item
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications, color: Color(0xFF55A2F0)),
+              icon: Icon(Icons.home, color: Color(0xFF55A2F0)),
               label: 'Notifications',
             ),
 
