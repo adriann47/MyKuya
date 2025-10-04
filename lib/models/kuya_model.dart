@@ -18,7 +18,7 @@ class KuyaModel {
     kuyas.add(
       KuyaModel(
         errand: 'Delivery', 
-        imagePath: 'assets/icons/johnweak.png',
+        imagePath: 'assets/icons/shai.png',
         route: '/delivery'
       )
     );
@@ -27,7 +27,7 @@ class KuyaModel {
     kuyas.add(
       KuyaModel(
         errand: 'Cleaning', 
-        imagePath: 'assets/icons/franksinatra.png',
+        imagePath: 'assets/icons/asap.png',
         route: '/cleaning'
       )
     );
@@ -35,7 +35,7 @@ class KuyaModel {
     kuyas.add(
       KuyaModel(
         errand: 'Shopping', 
-        imagePath: 'assets/icons/madong.png',
+        imagePath: 'assets/icons/ye.png',
         route: '/shopping'
       )
     );
@@ -43,7 +43,7 @@ class KuyaModel {
     kuyas.add(
       KuyaModel(
         errand: 'Pet Sitting', 
-        imagePath: 'assets/icons/lebwrong.png',
+        imagePath: 'assets/icons/lebron.png',
         route: '/pet'
       ),
     );
