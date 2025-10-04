@@ -17,7 +17,7 @@ class ErrandModel {
 
     errands.add(
       ErrandModel(
-        errand: 'Delivery', 
+        errand: 'Tech Help', 
         imagePath: 'assets/icons/techhelp2.png',
         route: '/deliverypreview'
       )

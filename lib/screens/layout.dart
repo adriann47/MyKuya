@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mykuya/screens/home_page.dart';
-import 'package:mykuya/screens/notifications.dart';
+import 'package:mykuya/screens/home_pagekuya.dart';
 import 'package:mykuya/screens/wallet.dart';
 
 // Main layout widget with bottom navigation
@@ -25,7 +25,7 @@ class _LayoutState extends State<Layout> {
   // List of screens for navigation
   final List _screens = [
     HomePage(),
-    Notifications(),
+    HomePageKuya(),
     Wallet(),
   ];
 

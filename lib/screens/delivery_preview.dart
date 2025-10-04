@@ -9,7 +9,7 @@ class DeliveryPreview extends StatelessWidget {
       appBar: AppBar(
         title: Text('Viewing Errand',
         style: TextStyle(
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
           fontSize: 20,
           color: Colors.white
         ),
@@ -24,16 +24,60 @@ class DeliveryPreview extends StatelessWidget {
           SizedBox(height: 40),
           Center(
             child: Text(
-              'Delivery',
+              'Tech Help',
               style: TextStyle(
                 fontSize: 24,
               ),
             ),
           ),
-          Container(
-            child: Image.asset('assets/icons/techhelp2.png')
-          ),
-          Text('Errand Details',
+          Image.asset('assets/icons/techhelp2.png'),
+          Padding(
+            padding: EdgeInsetsGeometry.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+            Text('Errand Details',
+                  style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xFF55A2F0),
+                  fontWeight: FontWeight.w600
+                  ),
+                ),
+              Text('Laptop Won\'t Connect to Wifi',
+                  style: TextStyle(
+                  fontSize: 18,
+                  color: Color.fromARGB(255, 1, 1, 1),
+                  fontWeight: FontWeight.w600
+                  ),
+                ),
+              Text('Description',
+                style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.w600
+                  ),
+                ),
+              Text('Laptop stopped connecting to WiFi since yesterday.',
+                style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                  ),
+                ),
+                Text('Other devices in the house are working fine.',
+                style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                  ),
+                ),
+                Text('Needs troubleshooting on laptop settings.',
+                style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                  ),
+                ),
+              ],
+            ),),
+              /* Text('Errand Details',
                   style: TextStyle(
                   fontSize: 20,
                   color: Color(0xFF55A2F0),
@@ -70,7 +114,7 @@ class DeliveryPreview extends StatelessWidget {
                 fontSize: 18,
                 color: Colors.black,
                   ),
-                ),
+                ), */
 
                 Spacer(),
                 

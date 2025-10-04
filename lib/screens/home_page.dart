@@ -61,80 +61,16 @@ class _HomePageState extends State<HomePage> {
             // Section title
             Container(
               margin: EdgeInsets.only(left: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/kuya');
-                },
-                child: Text(
-                  'Be a Kuya',
+              child: Text(
+                  'Do Errands',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                     color: Color(0xFF55A2F0)
                   ),
                 ),
-              ),
             ),
-            // Horizontal scroll list of errands
-            /* Container(
-              height: 220,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(left: 20,right: 20),
-                separatorBuilder: (context, index) => SizedBox(width: 20), 
-                itemCount: errands.length,
-                itemBuilder: (context, index){
-                  return GestureDetector(
-                    // Navigate to selected errand screen
-                    onTap: () {
-                      Navigator.pushNamed(context, errands[index].route);
-                    },
-                    child: Container(
-                      height: 220,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.black)
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Placeholder for errand image
-                          Container(
-                            height: 150,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15)
-                            ),
-                            child: Image.asset(errands[index].imagePath),
-                          ),
-                          // Errand title
-                          Text(
-                            errands[index].errand,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-              )
-            ), */
-            // Section title
-            /* Container(
-              margin: EdgeInsets.only(left: 20, top: 20),
-              child: Text(
-                'Special Errands',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                  color: Color(0xFF55A2F0)
-                ),
-              ),
-            ), */
+
             SizedBox(height: 15),
 
             Container(
@@ -197,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.w600
                               ),
                             )
                           ),
