@@ -5,12 +5,14 @@ class ErrandModel {
   String errand;
   String imagePath;
   String rate;
+  String type;
   String route;
 
   ErrandModel({
     required this.errand,
     required this.imagePath,
     required this.rate,
+    required this.type,
     required this.route,
   });
 
@@ -22,6 +24,7 @@ class ErrandModel {
         errand: 'Tech Help', 
         imagePath: 'assets/icons/techhelp2.png',
         rate: '100',
+        type: 'Tech Help',
         route: '/deliverypreview'
       )
     );
@@ -32,7 +35,8 @@ class ErrandModel {
         errand: 'Cleaning', 
         imagePath: 'assets/icons/klining.png',
         rate: '300',
-        route: '/cleaning'
+        type: 'Cleaning',
+        route: '/cleaningpreview'
       )
     );
 
@@ -41,7 +45,8 @@ class ErrandModel {
         errand: 'Shopping', 
         imagePath: 'assets/icons/grusire.png',
         rate: '70',
-        route: '/shopping'
+        type: 'Shopping',
+        route: '/shoppingpreview'
       )
     );
 
@@ -50,7 +55,8 @@ class ErrandModel {
         errand: 'Pet Sitting', 
         imagePath: 'assets/icons/pitsiting.png',
         rate: '200',
-        route: '/pet'
+        type: 'Pet Sitting',
+        route: '/petpreview'
       ),
     );
     return errands;

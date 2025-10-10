@@ -112,27 +112,49 @@ class _HomePageState extends State<HomePageKuya> {
                               fit: BoxFit.contain,
                             ),
                           ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 8),
+                                child: Text(
+                                  kuyas[index].kuya,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Spacer(),
+                              Icon(Icons.star,
+                              color: Color(0xFF55A2F0),
+                              size: 16,),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text('4.5'),
+                              )
+                            ],
+                          ),
                           Padding(
                             padding: EdgeInsets.only(left: 8),
                             child: Text(
                               kuyas[index].work,
                               style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600
                               ),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 8),
                             child: Text(
-                              kuyas[index].kuya,
+                              kuyas[index].location,
                               style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                                color: Colors.grey,
+                                fontSize: 12,
                               ),
                             ),
-                          ),
-                          
+                          ),    
                         ],
                       ),
                     ),

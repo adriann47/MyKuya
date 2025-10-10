@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/errand_models.dart';
 import 'package:mykuya/models/specialized_models.dart';
@@ -13,14 +14,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Stores errands data
   List<ErrandModel> errands = [];
+  List<ErrandModel> filteredErrands = [];
   List<SpecializedErrandModel> specialErrands = [];
   String category = '';
   String addPath = '';
+  String addType = '';
+  String addRoute = '';
+  TextEditingController searchController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController rateController = TextEditingController();
   // Fetch errands from model
   void _getErrands() {
     errands = ErrandModel.getErrands();
+    filteredErrands = errands;
   }
 
   void _getSpecialErrands(){
@@ -30,6 +36,8 @@ class _HomePageState extends State<HomePage> {
   void initState(){
     _getErrands(); // load errands on start
     _getSpecialErrands();
+
+    searchController.addListener(filterErrands);
   }
 
   @override
@@ -82,10 +90,10 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
                 childAspectRatio: 0.79,
-                children: List.generate(errands.length, (index) {
+                children: List.generate(filteredErrands.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, errands[index].route);
+                      Navigator.pushNamed(context, filteredErrands[index].route);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -103,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Image.asset(
-                              errands[index].imagePath,
+                              filteredErrands[index].imagePath,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -120,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: EdgeInsets.only(left: 8.0),
                             child: Text(
-                              errands[index].errand,
+                              filteredErrands[index].errand,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -161,6 +169,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(12),
                 border: OutlineInputBorder(
@@ -176,14 +185,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(width: 10),
-          ElevatedButton(onPressed: (){ topUpDialog();/* _addErrand(
-            ErrandModel(
-              errand: 'New Errand',
-              imagePath: 'assets/icons/techhelp2.png',
-              route: '/newErrand',
-              rate: '50',
-              ),
-            ); */
+          ElevatedButton(onPressed: (){ topUpDialog();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF55A2F0),
@@ -299,15 +301,20 @@ class _HomePageState extends State<HomePage> {
                   switch (category) {
                     case 'tech':
                       addPath = 'assets/icons/techhelp2.png';
+                      addType = 'Tech Help';
+                      addRoute = '/deliverypreview';
                       break;
                     case 'clean':
                       addPath = 'assets/icons/klining.png';
+                      addType = 'Cleaning';
                       break;
                     case 'shopping':
                       addPath = 'assets/icons/grusire.png';
+                      addType = 'Shopping';
                       break;
                     case 'pet':
                       addPath = 'assets/icons/pitsiting.png';
+                      addType = 'Pet Sitting';
                       break;
                     default:
                   }
@@ -316,7 +323,8 @@ class _HomePageState extends State<HomePage> {
                     ErrandModel(
                       errand: titleController.text, 
                       imagePath: addPath, 
-                      rate: rateController.text, 
+                      rate: rateController.text,
+                      type: addType,
                       route: '/newErrand'
                     )
                   );
@@ -348,5 +356,23 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       errands.add(newErrand);
     });
+
+    filterErrands();
+
+  }
+  void filterErrands () {
+    final query = searchController.text.toLowerCase();
+
+    setState(() {
+      filteredErrands = errands.where((errand) {
+        return errand.type.toLowerCase().contains(query);
+      }).toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 }

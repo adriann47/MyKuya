@@ -5,12 +5,14 @@ class KuyaModel {
   String kuya;
   String imagePath;
   String work;
+  String location;
   String route;
 
   KuyaModel({
     required this.kuya,
     required this.imagePath,
     required this.work,
+    required this.location,
     required this.route,
   });
 
@@ -22,6 +24,7 @@ class KuyaModel {
         kuya: 'Kuya Shai', 
         imagePath: 'assets/icons/shai.png',
         work: 'Tech Specialist',
+        location: 'San Fernando, Pampanga',
         route: '/delivery'
       )
     );
@@ -32,6 +35,7 @@ class KuyaModel {
         kuya: 'Kuya Rocky', 
         imagePath: 'assets/icons/asap.png',
         work: 'Cleaner',
+        location: 'Mabalacat, Pampanga',
         route: '/cleaning'
       )
     );
@@ -41,6 +45,7 @@ class KuyaModel {
         kuya: 'Kuya Ye', 
         imagePath: 'assets/icons/ye.png',
         work: 'Shopping God',
+        location: 'Angeles City, Pampanga',
         route: '/shopping'
       )
     );
@@ -50,6 +55,7 @@ class KuyaModel {
         kuya: 'Kuya Bron', 
         imagePath: 'assets/icons/lebron.png',
         work: 'Pet Sitter',
+        location: 'Porac, Pampanga',
         route: '/pet'
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mykuya/screens/history.dart';
 import 'package:mykuya/screens/home_page.dart';
 import 'package:mykuya/screens/home_pagekuya.dart';
 import 'package:mykuya/screens/wallet.dart';
@@ -26,6 +27,7 @@ class _LayoutState extends State<Layout> {
   final List _screens = [
     HomePage(),
     HomePageKuya(),
+    History(),
     Wallet(),
   ];
 
@@ -69,6 +71,9 @@ class _LayoutState extends State<Layout> {
               label: 'Notifications',
             ),
 
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book, color: Color(0xFF55A2F0)),
+              label: 'Errand History'),
             // Wallet item
             BottomNavigationBarItem(
               icon: Icon(Icons.wallet, color: Color(0xFF55A2F0)),

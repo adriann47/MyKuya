@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/activeErrands_models.dart';
 
-class DeliveryPreview extends StatefulWidget {
-  const DeliveryPreview({super.key});
+class CleaningPreview extends StatefulWidget {
+  const CleaningPreview({super.key});
 
   @override
-  State<DeliveryPreview> createState() => _DeliveryPreviewState();
+  State<CleaningPreview> createState() => _CleaningPreviewState();
 }
 
-class _DeliveryPreviewState extends State<DeliveryPreview> {
+class _CleaningPreviewState extends State<CleaningPreview> {
 List<ActiveErrands> activeErrands = [];
 
 void _getActiveErrands() {
@@ -41,13 +41,13 @@ void initState(){
           SizedBox(height: 40),
           Center(
             child: Text(
-              'Tech Help',
+              'Cleaning',
               style: TextStyle(
                 fontSize: 24,
               ),
             ),
           ),
-          Image.asset('assets/icons/techhelp2.png'),
+          Image.asset('assets/icons/klining.png'),
           Padding(
             padding: EdgeInsetsGeometry.only(left: 20, right: 20),
             child: Column(
@@ -60,7 +60,7 @@ void initState(){
                   fontWeight: FontWeight.w600
                   ),
                 ),
-              Text('Laptop Won\'t Connect to Wifi',
+              Text('Clean My Office',
                   style: TextStyle(
                   fontSize: 18,
                   color: Color.fromARGB(255, 1, 1, 1),
@@ -102,10 +102,10 @@ void initState(){
               child: ElevatedButton(
                 onPressed: () {
                   ActiveErrands newErrand = ActiveErrands(
-                    errand: 'Repair Aircon', 
-                    type: 'Tech Help', 
+                    errand: 'Clean Aircon', 
+                    type: 'Cleaning', 
                     rate: '67', 
-                    imagePath: 'assets/icons/techhelp2.png',
+                    imagePath: 'assets/icons/klining.png',
                     );
 
                     ActiveErrands.addErrand(newErrand);
