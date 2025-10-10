@@ -67,16 +67,16 @@ class _LayoutState extends State<Layout> {
 
             // Notifications item
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFF55A2F0)),
+              icon: Icon(Icons.back_hand_sharp, color: Color(0xFF55A2F0)),
               label: 'Notifications',
             ),
 
             BottomNavigationBarItem(
-              icon: Icon(Icons.book, color: Color(0xFF55A2F0)),
+              icon: Icon(Icons.menu_book, color: Color(0xFF55A2F0)),
               label: 'Errand History'),
             // Wallet item
             BottomNavigationBarItem(
-              icon: Icon(Icons.wallet, color: Color(0xFF55A2F0)),
+              icon: Icon(Icons.account_circle_rounded, color: Color(0xFF55A2F0)),
               label: 'Wallet',
             ),
           ],

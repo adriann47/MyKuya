@@ -75,10 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => Layout()),
       );
     } on FirebaseAuthException catch (e) {
+      print("Firebase Auth Error: ${e.code}"); 
       String message = "Login failed. Please try again.";
-      if (e.code == 'user-not-found') {
-        message = "No user found for that email.";
-      } else if (e.code == 'wrong-password') {
+      if (e.code == 'invalid-email') {
+        message = "Email or username doesn’t exist.";
+      } else if (e.code == 'invalid-credential') {
         message = "Incorrect password.";
       }
       ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Spacer(),
                 TextButton(
                   onPressed: () {
-                    // TODO: Forgot password functionality
+                    //forgot password
                   },
                   child: Text('Forgot Password'),
                 ),
