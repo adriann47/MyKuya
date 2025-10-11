@@ -26,26 +26,60 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('MyErrands'),
-      ),
     backgroundColor: Colors.white,
     
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 40,),
         Container(
           margin: EdgeInsets.only(left: 20),
           child: Text(
-            'Active Errands',
+            'Errand List',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 22,
-              color: Colors.black
+              color: Color(0XFF55A2F0)
             ),
           ),
         ),
         SizedBox(height: 15,),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Container(
+                width: 100,
+                child: Text('ERRAND',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold
+                ),),
+              ),
+            ),
+            Container(
+              child: Text('DETAILS',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold
+              ),
+              )
+            ),
+            
+            Spacer(),
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: Container(
+                child: Text('STATUS',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold 
+                ),),
+              ),
+            )
+          ],
+        ),
         Container(
           height: 750,
           child: ListView.separated(

@@ -57,13 +57,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            'MyKuya',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24
-            ),
-          ),
+          title: Image.asset('assets/icons/mainlogo.png', height: 40),
           backgroundColor: Colors.white,
           centerTitle: true,
         ),
@@ -74,7 +68,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             searchField(), // top search bar
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             // Section title
             Container(
               margin: EdgeInsets.only(left: 20),
@@ -253,15 +247,16 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(onPressed: (){ popUpDialog();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFF55A2F0),
+            backgroundColor: Colors.white,
             fixedSize: Size(50, 50),
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
             ),
           ),
           child: Icon(
-            Icons.add,
-            color: Colors.white,)
+            Icons.edit,
+            size: 30,
+            color: Color(0xFF55A2F0))
             )
         ],
       ),

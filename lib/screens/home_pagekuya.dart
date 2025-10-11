@@ -45,13 +45,7 @@ class _HomePageState extends State<HomePageKuya> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            'MyKuya',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24
-            ),
-          ),
+          title: Image.asset('assets/icons/mainlogo.png', height: 40),
           backgroundColor: Colors.white,
           centerTitle: true,
         ),
@@ -62,7 +56,7 @@ class _HomePageState extends State<HomePageKuya> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             searchField(), // top search bar
-            SizedBox(height: 10),
+            SizedBox(height: 15),
 
             // Section title
             Container(
@@ -77,7 +71,7 @@ class _HomePageState extends State<HomePageKuya> {
                 ),
             ),
             
-            SizedBox(height: 10),
+            SizedBox(height: 50),
 
             Expanded(
               child:Padding(

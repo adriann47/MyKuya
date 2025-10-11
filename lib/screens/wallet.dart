@@ -81,11 +81,12 @@ class _WalletState extends State<Wallet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 20,),
               // Welcome text
               const Text(
                 'Welcome, Brams!',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 30,
                   color: Colors.blueAccent,
                   fontWeight: FontWeight.bold,
                 ),
@@ -93,52 +94,55 @@ class _WalletState extends State<Wallet> {
               const SizedBox(height: 20),
 
               // Profile section
-              Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      'assets/icons/brams.jpg',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: 80,
-                          height: 80,
-                          color: Colors.grey[300],
-                          child: const Icon(Icons.person, size: 40),
-                        );
-                      },
+              Container(
+                color: Colors.blue,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset(
+                        'assets/icons/brams.jpg',
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            color: Colors.grey[300],
+                            child: const Icon(Icons.person, size: 40),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Brams Sicat',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Text('40 ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('errands ran'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('6 ',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text('errands booked'),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                    const SizedBox(width: 20),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Brams Sicat',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Text('40 ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('errands ran'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text('6 ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('errands booked'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 30),
 

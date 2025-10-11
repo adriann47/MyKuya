@@ -75,6 +75,7 @@ flutter:
     - assets/icons/ye.png
     - assets/icons/lebron.png
     - assets/icons/asap.png
+    - assets/icons/mainlogo.png
   uses-material-design: true
   
 
