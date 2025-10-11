@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Model for errands
 class ErrandModel {
   String errand;
   String imagePath;
@@ -16,49 +15,41 @@ class ErrandModel {
     required this.route,
   });
 
-  static List<ErrandModel> getErrands() {
-    List<ErrandModel> errands = [];
+  // Persistent list for the session
+  static final List<ErrandModel> _errands = [
+    ErrandModel(
+      errand: 'Tech Help',
+      imagePath: 'assets/icons/techhelp2.png',
+      rate: '100',
+      type: 'Tech Help',
+      route: '/deliverypreview',
+    ),
+    ErrandModel(
+      errand: 'Cleaning',
+      imagePath: 'assets/icons/klining.png',
+      rate: '300',
+      type: 'Cleaning',
+      route: '/cleaningpreview',
+    ),
+    ErrandModel(
+      errand: 'Shopping',
+      imagePath: 'assets/icons/grusire.png',
+      rate: '70',
+      type: 'Shopping',
+      route: '/shoppingpreview',
+    ),
+    ErrandModel(
+      errand: 'Pet Sitting',
+      imagePath: 'assets/icons/pitsiting.png',
+      rate: '200',
+      type: 'Pet Sitting',
+      route: '/petpreview',
+    ),
+  ];
 
-    errands.add(
-      ErrandModel(
-        errand: 'Tech Help', 
-        imagePath: 'assets/icons/techhelp2.png',
-        rate: '100',
-        type: 'Tech Help',
-        route: '/deliverypreview'
-      )
-    );
+  static List<ErrandModel> getErrands() => _errands;
 
-
-    errands.add(
-      ErrandModel(
-        errand: 'Cleaning', 
-        imagePath: 'assets/icons/klining.png',
-        rate: '300',
-        type: 'Cleaning',
-        route: '/cleaningpreview'
-      )
-    );
-
-    errands.add(
-      ErrandModel(
-        errand: 'Shopping', 
-        imagePath: 'assets/icons/grusire.png',
-        rate: '70',
-        type: 'Shopping',
-        route: '/shoppingpreview'
-      )
-    );
-
-    errands.add(
-      ErrandModel(
-        errand: 'Pet Sitting', 
-        imagePath: 'assets/icons/pitsiting.png',
-        rate: '200',
-        type: 'Pet Sitting',
-        route: '/petpreview'
-      ),
-    );
-    return errands;
+  static void addErrand(ErrandModel newErrand) {
+    _errands.add(newErrand);
   }
 }

@@ -104,7 +104,8 @@ void initState(){
                   ActiveErrands newErrand = ActiveErrands(
                     errand: 'Repair Aircon', 
                     type: 'Tech Help', 
-                    rate: '67', 
+                    rate: '67',
+                    status: 'Ongoing',
                     imagePath: 'assets/icons/techhelp2.png',
                     );
 

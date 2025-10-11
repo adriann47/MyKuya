@@ -104,7 +104,8 @@ void initState(){
                   ActiveErrands newErrand = ActiveErrands(
                     errand: 'Pet Sit', 
                     type: 'Pet Sitting', 
-                    rate: '67', 
+                    rate: '67',
+                    status: 'Ongoing',
                     imagePath: 'assets/icons/pitsiting.png',
                     );
 

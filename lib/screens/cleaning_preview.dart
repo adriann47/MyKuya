@@ -105,6 +105,7 @@ void initState(){
                     errand: 'Clean Aircon', 
                     type: 'Cleaning', 
                     rate: '67', 
+                    status: 'Ongoing',
                     imagePath: 'assets/icons/klining.png',
                     );
 

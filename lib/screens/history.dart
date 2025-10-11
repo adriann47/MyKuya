@@ -54,48 +54,52 @@ class _HistoryState extends State<History> {
             separatorBuilder: (context, index) => SizedBox(height: 0,), 
             itemCount: activeErrands.length,
             itemBuilder: (context, index){
-              /* return GestureDetector(
+              return GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, activeErrands[index].route)
+                  popUpDialog(context, activeErrands[index].errand, index, activeErrands[index].imagePath, activeErrands[index].rate);
                 },
-              ); */
-              return Container(
-                height: 100,
-                width: 400,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 100,
-                      width: 100,
-                      child: Image.asset(activeErrands[index].imagePath),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          activeErrands[index].errand,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black
-                          ),
-                        ),
-                         Text(
-                      '\$${activeErrands[index].rate}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF55A2F0)
+                child: Container(
+                  height: 100,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(activeErrands[index].imagePath),
                       ),
-                    )
-                      ],
-                    ),
-                    Spacer(),
-                   
-                  ],
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            activeErrands[index].errand,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black
+                            ),
+                          ),
+                           Text(
+                        '\$${activeErrands[index].rate}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xFF55A2F0)
+                        ),
+                      )
+                        ],
+                      ),
+                      Spacer(),
+                      Text(
+                        activeErrands[index].status,
+                        style: TextStyle(
+                          color: getStatusColor(activeErrands[index].status)
+                        ),)
+                    ],
+                  ),
                 ),
               );
             }
@@ -104,5 +108,71 @@ class _HistoryState extends State<History> {
       ],
     ),
     );
+  }
+
+  Future popUpDialog(BuildContext context, String errandName, int index, String image, String rate) => showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(errandName),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(image),
+          Text('\$$rate',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Color(0XFF55A2F0)
+          ),)
+        ],
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  activeErrands[index].status = 'Cancelled';
+                });
+                Navigator.of(context).pop();
+              }, 
+              child: Text('Cancel',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey
+              ),)),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  activeErrands[index].status = 'Completed';
+                });
+                Navigator.of(context).pop();
+              }, 
+              child: Text('Complete',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0XFF55A2F0)
+              ),)),
+          ],
+        )
+      ],
+    )
+  );
+
+  Color getStatusColor(String status){
+    switch (status) {
+      case 'Ongoing':
+        return Colors.grey;
+        
+      case 'Cancelled':
+        return Colors.red;
+      case 'Completed':
+        return Colors.green;
+      default:
+        return Colors.black;
+    }
   }
 }

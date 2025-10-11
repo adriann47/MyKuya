@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mykuya/models/activeErrands_models.dart';
 import 'package:mykuya/models/errand_models.dart';
 import 'package:mykuya/models/specialized_models.dart';
 
@@ -16,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   List<ErrandModel> errands = [];
   List<ErrandModel> filteredErrands = [];
   List<SpecializedErrandModel> specialErrands = [];
+  List<ActiveErrands> activeErrands = [];
   String category = '';
   String addPath = '';
   String addType = '';
@@ -32,10 +34,15 @@ class _HomePageState extends State<HomePage> {
   void _getSpecialErrands(){
     specialErrands = SpecializedErrandModel.getErrands();
   }
+
+  void _getActiveErrands(){
+    activeErrands = ActiveErrands.getActive();
+  }
   @override
   void initState(){
     _getErrands(); // load errands on start
     _getSpecialErrands();
+    _getActiveErrands();
 
     searchController.addListener(filterErrands);
   }
@@ -93,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                 children: List.generate(filteredErrands.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, filteredErrands[index].route);
+                      /* Navigator.pushNamed(context, filteredErrands[index].route); */
+                      acceptDialog(context, filteredErrands[index].errand, filteredErrands[index].imagePath, filteredErrands[index].rate, filteredErrands[index].type);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -161,6 +169,63 @@ class _HomePageState extends State<HomePage> {
   );
 }
 
+  Future acceptDialog(BuildContext context, String errandName, String image, String rate, String type) => showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(errandName),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(image),
+          Text('\$$rate',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Color(0XFF55A2F0)
+          ),)
+        ],
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              }, 
+              child: Text('Cancel',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey
+                ),
+              )
+              ),
+              TextButton(
+                onPressed: () {
+                  ActiveErrands newErrand = ActiveErrands(
+                    errand: errandName, 
+                    type: type, 
+                    rate: rate, 
+                    status: 'Ongoing', 
+                    imagePath: image
+                    );
+
+                    ActiveErrands.addErrand(newErrand);
+                    Navigator.of(context).pop();
+                }, 
+                child: Text('Accept',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0XFF55A2F0)
+                ),))
+          ],
+        )
+      ],
+    )
+    );
+
   // Search bar widget
   Container searchField() {
     return Container(
@@ -185,7 +250,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(width: 10),
-          ElevatedButton(onPressed: (){ topUpDialog();
+          ElevatedButton(onPressed: (){ popUpDialog();
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF55A2F0),
@@ -203,7 +268,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future topUpDialog() => showDialog(
+  Future popUpDialog() => showDialog(
     context: context, 
     builder: (context) => AlertDialog(
       backgroundColor: Colors.white,
@@ -307,14 +372,17 @@ class _HomePageState extends State<HomePage> {
                     case 'clean':
                       addPath = 'assets/icons/klining.png';
                       addType = 'Cleaning';
+                      addRoute = '/cleaningpreview';
                       break;
                     case 'shopping':
                       addPath = 'assets/icons/grusire.png';
                       addType = 'Shopping';
+                      addRoute = '/shoppingpreview';
                       break;
                     case 'pet':
                       addPath = 'assets/icons/pitsiting.png';
                       addType = 'Pet Sitting';
+                      addRoute = '/petpreview';
                       break;
                     default:
                   }
@@ -325,7 +393,7 @@ class _HomePageState extends State<HomePage> {
                       imagePath: addPath, 
                       rate: rateController.text,
                       type: addType,
-                      route: '/newErrand'
+                      route: addRoute
                     )
                   );
 
@@ -353,8 +421,10 @@ class _HomePageState extends State<HomePage> {
   );
   
   void _addErrand(ErrandModel newErrand) {
+    ErrandModel.addErrand(newErrand);
+
     setState(() {
-      errands.add(newErrand);
+      errands = ErrandModel.getErrands();
     });
 
     filterErrands();

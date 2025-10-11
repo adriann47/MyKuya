@@ -104,7 +104,8 @@ void initState(){
                   ActiveErrands newErrand = ActiveErrands(
                     errand: 'Buy Groceries', 
                     type: 'Shopping', 
-                    rate: '67', 
+                    rate: '67',
+                    status: 'Ongoing',
                     imagePath: 'assets/icons/grusire.png',
                     );
 
