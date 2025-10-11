@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePageKuya> {
                 children: List.generate(kuyas.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, kuyas[index].route);
+                      acceptDialog(context, kuyas[index].kuya, kuyas[index].imagePath);
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -184,4 +184,61 @@ class _HomePageState extends State<HomePageKuya> {
       ),
     );
   }
+
+  Future acceptDialog(BuildContext context, String kuyaName, String image) => showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text('Hire $kuyaName'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.star,
+              color: Color(0XFF55A2F0),
+              size: 32,),
+              Text('4.5',
+              style: TextStyle(fontSize: 24),)
+            ],
+          ),
+          Image.asset(image),
+          Text('\$1000',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Color(0XFF55A2F0)
+          ),)
+        ],
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              }, 
+              child: Text('Cancel',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey
+                ),
+              )
+              ),
+              TextButton(
+                onPressed: () {
+                    Navigator.of(context).pop();
+                }, 
+                child: Text('Accept',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0XFF55A2F0)
+                ),))
+          ],
+        )
+      ],
+    )
+    );
 }
