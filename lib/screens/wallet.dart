@@ -16,6 +16,7 @@ class _WalletState extends State<Wallet> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
         title: const Text(
           'Deposit',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -45,7 +46,7 @@ class _WalletState extends State<Wallet> {
             },
             child: const Text(
               'Confirm',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Color(0XFF55A2F0)),
             ),
           ),
         ],
@@ -193,7 +194,7 @@ class _WalletState extends State<Wallet> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            '₱$balance',
+                            '\$$balance',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 28,
@@ -269,7 +270,7 @@ class _WalletState extends State<Wallet> {
                                   fontWeight: FontWeight.bold),
                             ),
                             trailing: Text(
-                              '${isExpense ? '-' : '+'}₱${tx['amount']}',
+                              '${isExpense ? '-' : '+'}\$${tx['amount']}',
                               style: TextStyle(
                                 color: isExpense ? Colors.red : Colors.green,
                                 fontWeight: FontWeight.bold,

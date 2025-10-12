@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
@@ -127,7 +128,11 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(color: Color(0xFF55A2F0))
                 ),
                 hintText: 'Email',
               ),
@@ -138,7 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide(color: Color(0xFF55A2F0))
                 ),
                 hintText: 'Password',
               ),
@@ -160,7 +169,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     //forgot password
                   },
-                  child: Text('Forgot Password'),
+                  child: Text('Forgot Password',
+                  style: TextStyle(
+                    color: Color(0XFF55A2F0)
+                  ),),
                 ),
               ],
             ),
@@ -173,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child: _isLoading

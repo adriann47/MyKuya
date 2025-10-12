@@ -236,12 +236,11 @@ class _HomePageState extends State<HomePageKuya> {
                     );
                 } else {
                   Navigator.of(context).pop();
-                }
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text('Insufficient balance to hire $kuyaName.'),
                   backgroundColor: Colors.red,)
                   );
+                }
                 }, 
                 child: Text('Accept',
                 style: TextStyle(

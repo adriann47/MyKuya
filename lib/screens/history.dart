@@ -32,7 +32,7 @@ class _HistoryState extends State<History> {
     body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 40,),
+        SizedBox(height: 80,),
         Container(
           margin: EdgeInsets.only(left: 20),
           child: Text(
