@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/kuya_model.dart';
+import 'package:mykuya/screens/wallet_service.dart';
 
 // HomePage widget (main screen for errands)
 class HomePageKuya extends StatefulWidget {
@@ -10,6 +11,7 @@ class HomePageKuya extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePageKuya> {
+  final WalletService _walletService = WalletService();
   List<KuyaModel> kuyas = [];
 
   void _getKuyas(){
@@ -221,7 +223,25 @@ class _HomePageState extends State<HomePageKuya> {
             ),
             TextButton(
               onPressed: () {
+                int hirecost = 1000;
+
+                //if statement to check if user has enough balance
+                if(_walletService.balance >= hirecost){
+                  _walletService.deductBalance(hirecost, type: 'Hire');
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Sucessfuly hired $kuyaName!', ),
+                    backgroundColor: Colors.green,
+                    )
+                    );
+                } else {
+                  Navigator.of(context).pop();
+                }
                 Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Insufficient balance to hire $kuyaName.'),
+                  backgroundColor: Colors.red,)
+                  );
                 }, 
                 child: Text('Accept',
                 style: TextStyle(

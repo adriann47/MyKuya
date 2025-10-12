@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/activeErrands_models.dart';
+import 'package:mykuya/screens/wallet_service.dart';
 
 class History extends StatefulWidget {
   History({super.key});
@@ -189,6 +190,8 @@ class _HistoryState extends State<History> {
               onPressed: () {
                 setState(() {
                   activeErrands[index].status = 'Completed';
+                  final parsedrate = int.tryParse(rate.replaceAll(RegExp(r'[^\d]'), '')) ?? 0;
+                  WalletService().addBalance(parsedrate);
                 });
                 Navigator.of(context).pop();
               }, 
