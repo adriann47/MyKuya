@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mykuya/models/errand_models.dart';
 import 'package:mykuya/models/kuya_model.dart';
-import 'package:mykuya/models/specialized_models.dart';
-import 'package:mykuya/screens/home_page.dart';
 
 // HomePage widget (main screen for errands)
 class HomePageKuya extends StatefulWidget {
@@ -13,25 +10,15 @@ class HomePageKuya extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePageKuya> {
-  // Stores errands data
-  List<ErrandModel> errands = [];
-  List<SpecializedErrandModel> specialErrands = [];
   List<KuyaModel> kuyas = [];
-  // Fetch errands from model
-  void _getErrands() {
-    errands = ErrandModel.getErrands();
-  }
 
-  void _getSpecialErrands(){
-    specialErrands = SpecializedErrandModel.getErrands();
-  }
   void _getKuyas(){
     kuyas = KuyaModel.getkuyas();
   }
+
   @override
   void initState(){
-    _getErrands(); // load errands on start
-    _getSpecialErrands();
+    //Load kuya models on start
     _getKuyas();
   }
 
@@ -62,101 +49,103 @@ class _HomePageState extends State<HomePageKuya> {
             Container(
               margin: EdgeInsets.only(left: 20),
               child: Text(
-                  'Book Errands',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: Color(0xFF55A2F0)
-                  ),
+                'Book Errands',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: Color(0xFF55A2F0)
                 ),
+              ),
             ),
             
             SizedBox(height: 50),
 
             Expanded(
               child:Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-                childAspectRatio: 0.70,
-                children: List.generate(kuyas.length, (index) {
-                  return GestureDetector(
-                    onTap: () {
-                      acceptDialog(context, kuyas[index].kuya, kuyas[index].imagePath);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Image
-                          Container(
-                            height: 180,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  childAspectRatio: 0.70,
+                  children: List.generate(kuyas.length, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        acceptDialog(
+                          context, 
+                          kuyas[index].kuya, 
+                          kuyas[index].imagePath);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),  
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Image
+                            Container(
+                              height: 180,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Image.asset(
+                                kuyas[index].imagePath,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                            child: Image.asset(
-                              kuyas[index].imagePath,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 8),
-                                child: Text(
-                                  kuyas[index].kuya,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: 8),
+                                  child: Text(
+                                    kuyas[index].kuya,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Spacer(),
-                              Icon(Icons.star,
-                              color: Color(0xFF55A2F0),
-                              size: 16,),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Text('4.5'),
-                              )
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Text(
-                              kuyas[index].work,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600
+                                Spacer(),
+                                Icon(Icons.star,
+                                color: Color(0xFF55A2F0),
+                                size: 16,),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text('4.5'),
+                                )
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Text(
+                                kuyas[index].work,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 8),
-                            child: Text(
-                              kuyas[index].location,
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
+                            Padding(
+                              padding: EdgeInsets.only(left: 8),
+                              child: Text(
+                                kuyas[index].location,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                          ),    
-                        ],
+                            ),    
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
+                    );
+                  }
+                ),
               ),
-            ),
-          )
+            )
           )
         ],
       ),
@@ -179,7 +168,7 @@ class _HomePageState extends State<HomePageKuya> {
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: Color(0xFF55A2F0))
           ),
-          hintText: 'Search for errands'
+          hintText: 'Search for kuyas'
         ),
       ),
     );
@@ -196,19 +185,23 @@ class _HomePageState extends State<HomePageKuya> {
           Row(
             children: [
               Icon(Icons.star,
-              color: Color(0XFF55A2F0),
-              size: 32,),
+                color: Color(0XFF55A2F0),
+                size: 32,
+              ),
               Text('4.5',
-              style: TextStyle(fontSize: 24),)
+                style: TextStyle(fontSize: 24
+                ),
+              )
             ],
           ),
           Image.asset(image),
           Text('\$1000',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0XFF55A2F0)
-          ),)
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF55A2F0)
+            ),
+          )
         ],
       ),
       actions: [
@@ -218,27 +211,29 @@ class _HomePageState extends State<HomePageKuya> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-              }, 
+                }, 
               child: Text('Cancel',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey
                 ),
               )
-              ),
-              TextButton(
-                onPressed: () {
-                    Navigator.of(context).pop();
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
                 }, 
                 child: Text('Accept',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color(0XFF55A2F0)
-                ),))
+                )
+              )
+            )
           ],
         )
       ],
     )
-    );
+  );
 }

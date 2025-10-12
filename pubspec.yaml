@@ -57,16 +57,7 @@ dev_dependencies:
 flutter:
 
   assets: 
-    - assets/icons/delivery.jpg
-    - assets/icons/cleaning.jpg
-    - assets/icons/shopping.jpg
     - assets/icons/brams.jpg
-    - assets/icons/pet.png
-    - assets/icons/documents.png
-    - assets/icons/tech.png
-    - assets/icons/homerepair.png
-    - assets/icons/health.png
-    - assets/icons/deliveryup.png
     - assets/icons/techhelp2.png
     - assets/icons/grusire.png
     - assets/icons/pitsiting.png

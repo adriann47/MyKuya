@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mykuya/models/activeErrands_models.dart';
 import 'package:mykuya/models/errand_models.dart';
-import 'package:mykuya/models/specialized_models.dart';
 
 // HomePage widget (main screen for errands)
 class HomePage extends StatefulWidget {
@@ -16,23 +15,21 @@ class _HomePageState extends State<HomePage> {
   // Stores errands data
   List<ErrandModel> errands = [];
   List<ErrandModel> filteredErrands = [];
-  List<SpecializedErrandModel> specialErrands = [];
   List<ActiveErrands> activeErrands = [];
+
   String category = '';
   String addPath = '';
   String addType = '';
   String addRoute = '';
+
   TextEditingController searchController = TextEditingController();
   TextEditingController titleController = TextEditingController();
   TextEditingController rateController = TextEditingController();
+
   // Fetch errands from model
   void _getErrands() {
     errands = ErrandModel.getErrands();
     filteredErrands = errands;
-  }
-
-  void _getSpecialErrands(){
-    specialErrands = SpecializedErrandModel.getErrands();
   }
 
   void _getActiveErrands(){
@@ -41,7 +38,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState(){
     _getErrands(); // load errands on start
-    _getSpecialErrands();
     _getActiveErrands();
 
     searchController.addListener(filterErrands);
@@ -73,13 +69,13 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(left: 20),
               child: Text(
-                  'Run Errands',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
-                    color: Color(0xFF55A2F0)
-                  ),
+                'Run Errands',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: Color(0xFF55A2F0)
                 ),
+              ),
             ),
 
             SizedBox(height: 10),
@@ -94,13 +90,17 @@ class _HomePageState extends State<HomePage> {
                 children: List.generate(filteredErrands.length, (index) {
                   return GestureDetector(
                     onTap: () {
-                      /* Navigator.pushNamed(context, filteredErrands[index].route); */
-                      acceptDialog(context, filteredErrands[index].errand, filteredErrands[index].imagePath, filteredErrands[index].rate, filteredErrands[index].type);
+                      acceptDialog(
+                        context, 
+                        filteredErrands[index].errand, 
+                        filteredErrands[index].imagePath, 
+                        filteredErrands[index].rate, 
+                        filteredErrands[index].type
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        
+                        borderRadius: BorderRadius.circular(15), 
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             )
                           ),
-                          // Title
+                        // Title
                           Padding(
                             padding: EdgeInsets.only(left: 8.0),
                             child: Text(
@@ -140,11 +140,11 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: EdgeInsets.only(left:8.0),
                             child: Text(
-                            'Starts at \$${errands[index].rate}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600
+                              'Starts at \$${errands[index].rate}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600
                               ),
                             )
                           ),
@@ -156,12 +156,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           )
-            )
-        ],
+        )
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Future acceptDialog(BuildContext context, String errandName, String image, String rate, String type) => showDialog(
     context: context, 
@@ -173,11 +173,12 @@ class _HomePageState extends State<HomePage> {
         children: [
           Image.asset(image),
           Text('\$$rate',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Color(0XFF55A2F0)
-          ),)
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF55A2F0)
+            ),
+          )
         ],
       ),
       actions: [
@@ -194,31 +195,38 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey
                 ),
               )
-              ),
-              TextButton(
-                onPressed: () {
-                  ActiveErrands newErrand = ActiveErrands(
-                    errand: errandName, 
-                    type: type, 
-                    rate: rate, 
-                    status: 'Ongoing', 
-                    imagePath: image
-                    );
+            ),
+            TextButton(
+              onPressed: () {
+                ActiveErrands newErrand = ActiveErrands(
+                  errand: errandName, 
+                  type: type, 
+                  rate: rate, 
+                  status: 'Ongoing', 
+                  imagePath: image
+                );
 
-                    ActiveErrands.addErrand(newErrand);
-                    Navigator.of(context).pop();
-                }, 
-                child: Text('Accept',
+                ActiveErrands.addErrand(newErrand);
+
+                setState(() {
+                  errands.removeWhere((errand) => errand.errand == errandName && errand.type == type);
+                  filterErrands();
+                });
+                Navigator.of(context).pop();
+              }, 
+              child: Text('Accept',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Color(0XFF55A2F0)
-                ),))
+                ),
+              ) 
+            )
           ],
         )
       ],
     )
-    );
+  );
 
   // Search bar widget
   Container searchField() {
@@ -244,20 +252,20 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SizedBox(width: 10),
-          ElevatedButton(onPressed: (){ popUpDialog();
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            fixedSize: Size(50, 50),
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+          ElevatedButton(onPressed: (){ popUpDialog();},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              fixedSize: Size(50, 50),
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              ),
             ),
-          ),
-          child: Icon(
-            Icons.edit,
-            size: 32,
-            color: Color(0xFF55A2F0))
+            child: Icon(
+              Icons.edit,
+              size: 32,
+              color: Color(0xFF55A2F0)
             )
+          )
         ],
       ),
     );
@@ -274,71 +282,70 @@ class _HomePageState extends State<HomePage> {
       ),
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setDialogState){
-        return SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: InputDecoration(
-                  hintText: 'Errand Title'
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    hintText: 'Errand Title'
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: rateController,
-                decoration: InputDecoration(
-                  hintText: 'Rate'
+                SizedBox(height: 10),
+                TextField(
+                  controller: rateController,
+                  decoration: InputDecoration(
+                    hintText: 'Rate'
+                  ),
                 ),
-              ),
-              SizedBox(height: 10,),
-              RadioListTile(
-                title: Text('Tech Help'),
-                value: 'tech', 
-                groupValue: category, 
-                onChanged: (value) {
-                  setDialogState(() {
-                    category = value!;
-                    }
-                  );
-                }
-              ),
-              RadioListTile(
-                title: Text('Cleaning Services'),
-                value: 'clean', 
-                groupValue: category, 
-                onChanged: (value) {
-                  setDialogState(() {
-                    category = value!;
-                    }
-                  );
-                }
-              ),
-              RadioListTile(
-                title: Text('Shopping'),
-                value: 'shopping', 
-                groupValue: category, 
-                onChanged: (value) {
-                  setDialogState(() {
-                    category = value!;
-                    }
-                  );
-                }
-              ),
-              RadioListTile(
-                title: Text('Pet Sitting'),
-                value: 'pet', 
-                groupValue: category, 
-                onChanged: (value) {
-                  setDialogState(() {
-                    category = value!;
-                    }
-                  );
-                }
-              ),
-            ],
-          ),
-        );
+                SizedBox(height: 10,),
+                RadioListTile(
+                  title: Text('Tech Help'),
+                  value: 'tech', 
+                  groupValue: category, 
+                  onChanged: (value) {
+                    setDialogState(() {
+                      category = value!;
+                      }
+                    );
+                  }
+                ),
+                RadioListTile(
+                  title: Text('Cleaning Services'),
+                  value: 'clean', 
+                  groupValue: category, 
+                  onChanged: (value) {
+                    setDialogState(() {
+                      category = value!;
+                      }
+                    );
+                  }
+                ),
+                RadioListTile(
+                  title: Text('Shopping'),
+                  value: 'shopping', 
+                  groupValue: category, 
+                  onChanged: (value) {
+                    setDialogState(() {
+                      category = value!;
+                      }
+                    );
+                  }
+                ),
+                RadioListTile(
+                  title: Text('Pet Sitting'),
+                  value: 'pet', 
+                  groupValue: category, 
+                  onChanged: (value) {
+                    setDialogState(() {
+                      category = value!;
+                    });
+                  }
+                ),
+              ],
+            ),
+          );
         }
       ),
       actions: [
@@ -348,9 +355,10 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: (){Navigator.of(context).pop();}, 
               child: Text('Cancel',
-              style: TextStyle(
+                style: TextStyle(
                 color: Colors.grey
-                ),)
+                ),
+              )
             ),
             TextButton(
               onPressed: () {
@@ -394,21 +402,25 @@ class _HomePageState extends State<HomePage> {
 
                   titleController.clear();
                   rateController.clear();
+
                   setState(() {
                     category = '';
                   });
+
                   Navigator.of(context).pop();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Please Fill all fields.')),
-                    );
+                  );
                 }
               }, 
               child: Text('Add',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF55A2F0)
-              ),))
+                ),
+              )
+            )
           ],
         )
       ],
@@ -423,8 +435,8 @@ class _HomePageState extends State<HomePage> {
     });
 
     filterErrands();
-
   }
+
   void filterErrands () {
     final query = searchController.text.toLowerCase();
 

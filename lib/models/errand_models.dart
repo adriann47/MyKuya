@@ -15,7 +15,7 @@ class ErrandModel {
     required this.route,
   });
 
-  // Persistent list for the session
+  // Persistent list
   static final List<ErrandModel> _errands = [
     ErrandModel(
       errand: 'Tech Help',

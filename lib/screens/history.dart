@@ -89,9 +89,17 @@ class _HistoryState extends State<History> {
             itemCount: activeErrands.length,
             itemBuilder: (context, index){
               return GestureDetector(
-                onTap: () {
-                  popUpDialog(context, activeErrands[index].errand, index, activeErrands[index].imagePath, activeErrands[index].rate);
-                },
+                onTap: activeErrands[index].status == 'Completed'
+                  ? null
+                  : () {
+                      popUpDialog(
+                        context,
+                        activeErrands[index].errand,
+                        index,
+                        activeErrands[index].imagePath,
+                        activeErrands[index].rate,
+                      );
+                    },
                 child: Container(
                   height: 100,
                   width: 400,

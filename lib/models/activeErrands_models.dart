@@ -13,7 +13,6 @@ class ActiveErrands {
     required this.imagePath,
   });
 
-  // 🔄 Shared static list (acts like a global in-memory store)
   static final List<ActiveErrands> _activeErrands = [
     ActiveErrands(
       errand: 'Repair Laptop',
@@ -31,10 +30,8 @@ class ActiveErrands {
     ),
   ];
 
-  // ✅ Returns shared list
   static List<ActiveErrands> getActive() => _activeErrands;
 
-  // ✅ Adds a new errand to shared list
   static void addErrand(ActiveErrands errand) {
     _activeErrands.add(errand);
   }
